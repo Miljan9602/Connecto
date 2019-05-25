@@ -2,8 +2,8 @@
 
 namespace App\Exceptions;
 
+use App\Exceptions\Api\ApiValidationException;
 use Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -15,7 +15,8 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        //
+        NotFoundHttpException::class,
+        ApiValidationException::class
     ];
 
     /**
