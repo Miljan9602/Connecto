@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\Api\User\UpdateUser;
 use App\Repositories\User\IUserRepository;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -43,11 +44,11 @@ class UserController extends Controller
         return response()->json($data);
     }
 
-    public function update(Request $request, User $user) {
+    public function update(UpdateUser $request, User $user) {
 
         $data = [
             'status' => 'ok',
-            'user' => $this->user->update($user, $request->all())
+            'user' => $this->user->update($user, $request->validated())
         ];
 
         return response()->json($data);
