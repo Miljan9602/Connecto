@@ -18,6 +18,9 @@ abstract class AbstractRequest extends FormRequest
         return true;
     }
 
+    /**
+     * @param Validator $validator
+     */
     protected function failedValidation(Validator $validator)
     {
         $errorsData = [];
@@ -27,10 +30,13 @@ abstract class AbstractRequest extends FormRequest
 
             if (sizeof($errors) > 0) {
                 $errorsData[$key] = $errors[0];
+                $errorMessage = $errors[0];
             }
+
         }
 
-        throw (new ApiValidationException($validator))->setErrorData($errorsData);
+
+        throw (new ApiValidationException($validator))->setErrorData($errorsData)->setMessage($errorMessage);
     }
 
     /**

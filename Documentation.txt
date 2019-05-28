@@ -1,0 +1,5 @@
+Api Auth
+https://medium.com/techcompose/create-rest-api-in-laravel-with-authentication-using-passport-133a1678a876
+
+Repository Pattern
+https://www.larashout.com/how-to-use-repository-pattern-in-laravel

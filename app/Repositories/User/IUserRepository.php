@@ -8,12 +8,11 @@
 
 namespace App\Repositories\User;
 
-
 use App\User;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 interface IUserRepository
 {
-
     /**
      * @param User $user
      * @return User|null
@@ -38,4 +37,16 @@ interface IUserRepository
      * @return User|null
      */
     public function update(User $user, array $data) : ?User;
+
+    /**
+     * @param array $data
+     * @return User|null
+     */
+    public function login(array $data) : ?Authenticatable;
+
+    /**
+     * @param array $data
+     * @return User|null
+     */
+    public function register(array $data) : ?User;
 }

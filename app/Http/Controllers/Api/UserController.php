@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\Api\User\Login;
+use App\Http\Requests\Api\User\LoginUser;
+use App\Http\Requests\Api\User\RegisterUser;
 use App\Http\Requests\Api\User\UpdateUser;
 use App\Repositories\User\IUserRepository;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -59,5 +63,27 @@ class UserController extends Controller
         $this->user->delete($user);
 
         return response()->json([], 204);
+    }
+
+    public function login(LoginUser $request) {
+
+        // we got logged in user.
+        if ($user = $this->user->login($request->validated())) {
+            return response()->json(['status' => 'ok','user' => $user]);
+        }
+
+        return response()->json(['status'=>'fail', 'message' => 'The password you entered is incorrect. Please try again.',
+            'error_type' => 'bad_password'], 401);
+    }
+
+    public function register(RegisterUser $request) {
+
+        $user = $this->user->register($request->all());
+
+        return response()->json(['status'=>'ok', 'user' => $user], 201);
+    }
+
+    public function details(){
+        return Auth::user();
     }
 }

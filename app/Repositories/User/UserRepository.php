@@ -11,6 +11,8 @@ namespace App\Repositories\User;
 
 use App\Repositories\AbstractRepository;
 use App\User;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class UserRepository
@@ -40,5 +42,26 @@ class UserRepository extends AbstractRepository implements IUserRepository
 
         return $user;
     }
+
+    public function login(array $data): ?Authenticatable
+    {
+        if(Auth::attempt(['email' => $data['email'], 'password' => $data['password']])){
+            $user = Auth::user();
+            $user->token =  $user->createToken('MyApp')->accessToken;
+            return $user;
+        }
+
+        return null;
+    }
+
+    public function register(array $data): ?User
+    {
+        $data['password'] = bcrypt($data['password']);
+        $user = User::create($data);
+        $user->token =  $user->createToken('MyApp')->accessToken;
+
+        return $user;
+    }
+
 
 }

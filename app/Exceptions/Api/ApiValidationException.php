@@ -41,7 +41,7 @@ class ApiValidationException extends ValidationException implements Responsable
         $response = [
             'status' => 'fail',
             'message' => $this->message,
-            'error_type' => 'ValidationException',
+            'error_type' => 'validation_failed',
         ];
 
         // If additional data is set, display.
