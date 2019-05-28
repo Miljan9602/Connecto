@@ -46,9 +46,7 @@ class UserRepository extends AbstractRepository implements IUserRepository
     public function login(array $data): ?Authenticatable
     {
         if(Auth::attempt(['email' => $data['email'], 'password' => $data['password']])){
-            $user = Auth::user();
-            $user->token =  $user->createToken('MyApp')->accessToken;
-            return $user;
+            return Auth::user();
         }
 
         return null;
@@ -57,10 +55,7 @@ class UserRepository extends AbstractRepository implements IUserRepository
     public function register(array $data): ?User
     {
         $data['password'] = bcrypt($data['password']);
-        $user = User::create($data);
-        $user->token =  $user->createToken('MyApp')->accessToken;
-
-        return $user;
+        return User::create($data);
     }
 
 

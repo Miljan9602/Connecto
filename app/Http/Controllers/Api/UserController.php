@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Requests\Api\User\Login;
 use App\Http\Requests\Api\User\LoginUser;
 use App\Http\Requests\Api\User\RegisterUser;
 use App\Http\Requests\Api\User\UpdateUser;
+use App\Http\Resources\User\UserCollection;
+use App\Http\Resources\User\UserResource;
 use App\Repositories\User\IUserRepository;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -29,35 +29,52 @@ class UserController extends Controller
         $this->user = $interface;
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(Request $request) {
-        $data = [
-            'status' => 'ok',
-            'users' => $this->user->all($request->all())
-        ];
 
-        return response()->json($data);
+        $users = $this->user->all($request->all());
+
+        $response = (new UserCollection($users));
+
+        return response()->json(array_merge($response->toArray($request), ['status' => 'ok']));
     }
 
+    /**
+     * @param User $user
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function show(User $user) {
 
         $data = [
             'status' => 'ok',
-            'user' => $this->user->get($user)
+            'user' => new UserResource($this->user->get($user))
         ];
 
         return response()->json($data);
     }
 
+    /**
+     * @param UpdateUser $request
+     * @param User $user
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(UpdateUser $request, User $user) {
 
         $data = [
             'status' => 'ok',
-            'user' => $this->user->update($user, $request->validated())
+            'user' => new UserResource($this->user->update($user, $request->validated()))
         ];
 
         return response()->json($data);
     }
 
+    /**
+     * @param User $user
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function delete(User $user) {
 
         $this->user->delete($user);
@@ -65,25 +82,41 @@ class UserController extends Controller
         return response()->json([], 204);
     }
 
+    /**
+     * @param LoginUser $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function login(LoginUser $request) {
 
         // we got logged in user.
         if ($user = $this->user->login($request->validated())) {
-            return response()->json(['status' => 'ok','user' => $user]);
+
+            $user->token = $user->createToken('MyApp')->accessToken;
+
+            $resource = (new UserResource($user))->withAccessToken();
+
+            return response()->json([
+                'status' => 'ok',
+                'user' => $resource
+            ]);
         }
 
         return response()->json(['status'=>'fail', 'message' => 'The password you entered is incorrect. Please try again.',
             'error_type' => 'bad_password'], 401);
     }
 
+    /**
+     * @param RegisterUser $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function register(RegisterUser $request) {
 
         $user = $this->user->register($request->all());
 
-        return response()->json(['status'=>'ok', 'user' => $user], 201);
-    }
+        $user->token = $user->createToken('MyApp')->accessToken;
 
-    public function details(){
-        return Auth::user();
+        $resource = (new UserResource($user))->withAccessToken();
+
+        return response()->json(['status'=>'ok', 'user' => $resource], 201);
     }
 }

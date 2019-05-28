@@ -22,7 +22,6 @@ Route::group(['prefix' => 'v1'], function ($router) {
 
         Route::post('login', 'Api\UserController@login');
         Route::post('register', 'Api\UserController@register');
-        Route::get('details', 'Api\UserController@register');
 
     });
 

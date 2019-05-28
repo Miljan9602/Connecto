@@ -3,3 +3,7 @@ https://medium.com/techcompose/create-rest-api-in-laravel-with-authentication-us
 
 Repository Pattern
 https://www.larashout.com/how-to-use-repository-pattern-in-laravel
+
+Api Resources
+https://scotch.io/tutorials/laravel-eloquent-api-resources
+https://laravel.com/docs/5.8/eloquent-resources
