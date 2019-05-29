@@ -34,7 +34,10 @@ class ApiValidationException extends ValidationException implements Responsable
     }
 
 
-
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return Response
+     */
     public function toResponse($request)
     {
         // Must have data.
