@@ -20,8 +20,8 @@ Route::group(['prefix' => 'v1'], function ($router) {
 
     Route::group(['prefix' => 'user'], function ($router) {
 
-        Route::post('login', 'Api\UserController@login');
-        Route::post('register', 'Api\UserController@register');
+        Route::post('login', 'Api\UserController@login')->name('user.login');
+        Route::post('register', 'Api\UserController@register')->name('user.register');
 
     });
 
