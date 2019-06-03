@@ -3,6 +3,7 @@
 namespace App\Http\Resources\User;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class UserResource extends JsonResource
 {
@@ -30,6 +31,9 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            $this->mergeWhen(Auth::user()->id === $this->id, [
+                'email_verified_at' => Auth::user()->email_verified_at
+            ])
         ];
 
         if ($this->withAccessToken) {

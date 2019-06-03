@@ -7,3 +7,14 @@ https://www.larashout.com/how-to-use-repository-pattern-in-laravel
 Api Resources
 https://scotch.io/tutorials/laravel-eloquent-api-resources
 https://laravel.com/docs/5.8/eloquent-resources
+
+Email verification
+https://github.com/tolgayildizz/laravel-5.7-email-verification-and-auth-via-api
+https://medium.com/employbl/build-laravel-5-7-email-authentication-with-mailgun-and-digital-ocean-15a92c5bdddf
+
+Reset password
+https://medium.com/@sagarmaheshwary31/laravel-multiple-guards-authentication-middleware-login-throttle-and-password-reset-a822e26f15ac
+
+SOLID Php
+https://www.hashbangcode.com/article/solid-principles-php
+https://medium.com/prod-io/solid-principles-takeaways-ec0825a07247
