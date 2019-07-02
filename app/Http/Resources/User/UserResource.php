@@ -7,18 +7,6 @@ use Illuminate\Support\Facades\Auth;
 
 class UserResource extends JsonResource
 {
-
-    protected $withAccessToken;
-
-    /**
-     * UserResource constructor.
-     */
-    public function __construct($resource)
-    {
-        parent::__construct($resource);
-        $this->withAccessToken = false;
-    }
-
     /**
      * Transform the resource into an array.
      *
@@ -27,24 +15,10 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        $data = [
+        return [
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            $this->mergeWhen(Auth::user()->id === $this->id, [
-                'email_verified_at' => Auth::user()->email_verified_at
-            ])
         ];
-
-        if ($this->withAccessToken) {
-            $data['token'] = $this->token;
-        }
-
-        return $data;
-    }
-
-    public function withAccessToken() {
-        $this->withAccessToken = true;
-        return $this;
     }
 }

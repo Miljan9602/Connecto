@@ -18,11 +18,10 @@ Route::group(['prefix' => 'v1'], function ($router) {
 
     Route::apiResource('user', 'Api\UserController', ['middleware' => 'auth:api']);
 
-    Route::group(['prefix' => 'user'], function ($router) {
-
-        Route::post('login', 'Api\UserController@login')->name('user.login');
-        Route::post('register', 'Api\UserController@register')->name('user.register');
-
+    Route::group(['prefix' => 'profiles'], function ($router) {
+        Route::get('current_user', 'Api\ProfileController@current_user')->name('profiles.current_user');
+        Route::post('register', 'Api\ProfileController@register');
+        Route::post('login', 'Api\ProfileController@login');
     });
 
 });

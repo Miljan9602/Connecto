@@ -15,10 +15,14 @@ class BackendServiceProvider extends ServiceProvider
 {
     public function register()
     {
-
         $this->app->bind(
             'App\Repositories\User\IUserRepository',
             'App\Repositories\User\UserRepository'
+        );
+
+        $this->app->bind(
+            'App\Repositories\Profile\IProfileRepository',
+            'App\Repositories\Profile\ProfileRepository'
         );
     }
 }

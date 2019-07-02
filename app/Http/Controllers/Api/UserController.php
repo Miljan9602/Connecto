@@ -81,42 +81,4 @@ class UserController extends Controller
 
         return response()->json([], 204);
     }
-
-    /**
-     * @param LoginUser $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function login(LoginUser $request) {
-
-        // we got logged in user.
-        if ($user = $this->user->login($request->validated())) {
-
-            $user->token = $user->createToken('MyApp')->accessToken;
-
-            $resource = (new UserResource($user))->withAccessToken();
-
-            return response()->json([
-                'status' => 'ok',
-                'user' => $resource
-            ]);
-        }
-
-        return response()->json(['status'=>'fail', 'message' => 'The password you entered is incorrect. Please try again.',
-            'error_type' => 'bad_password'], 401);
-    }
-
-    /**
-     * @param RegisterUser $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function register(RegisterUser $request) {
-
-        $user = $this->user->register($request->all());
-
-        $user->token = $user->createToken('MyApp')->accessToken;
-
-        $resource = (new UserResource($user))->withAccessToken();
-
-        return response()->json(['status'=>'ok', 'user' => $resource], 201);
-    }
 }
