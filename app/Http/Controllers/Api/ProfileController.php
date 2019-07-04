@@ -5,14 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\Api\User\LoginUser;
 use App\Http\Requests\Api\User\RegisterUser;
 use App\Http\Resources\Profile\ProfileResource;
-use App\Http\Resources\User\UserResource;
 use App\Repositories\Profile\IProfileRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-
     /**
      * @var IProfileRepository
      */

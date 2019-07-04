@@ -24,5 +24,10 @@ class BackendServiceProvider extends ServiceProvider
             'App\Repositories\Profile\IProfileRepository',
             'App\Repositories\Profile\ProfileRepository'
         );
+
+        $this->app->bind(
+            'App\Repositories\PasswordReset\IPasswordResetRepository',
+            'App\Repositories\PasswordReset\PasswordResetRepository',
+        );
     }
 }

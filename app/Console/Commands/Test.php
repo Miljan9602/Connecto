@@ -63,5 +63,6 @@ class Test extends Command
 
         curl_close ($ch);
 
+        dd($server_output);
     }
 }
