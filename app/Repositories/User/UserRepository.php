@@ -30,16 +30,4 @@ class UserRepository extends AbstractRepository implements IUserRepository
     {
         return User::all();
     }
-
-    public function delete(User $user)
-    {
-        $user->delete();
-    }
-
-    public function update(User $user, array $data): ?User
-    {
-        $user->update($data);
-
-        return $user;
-    }
 }

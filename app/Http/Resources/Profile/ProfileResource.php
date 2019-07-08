@@ -22,6 +22,7 @@ class ProfileResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'email_verified_at' => $this->email_verified_at,
+            'profile_pic_url' => $this->profile_pic_url,
             $this->mergeWhen($this->withAccessToken, [
                 'token' => $this->token
             ])

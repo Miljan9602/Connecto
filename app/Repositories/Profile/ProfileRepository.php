@@ -1,15 +1,28 @@
 <?php
 
-
 namespace App\Repositories\Profile;
 
-
+use App\Repositories\Avatar\IUserAvatarRepository;
 use App\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileRepository implements IProfileRepository
 {
+    /**
+     * @var IUserAvatarRepository
+     */
+    protected $userAvatarRepository;
+
+    /**
+     * ProfileRepository constructor.
+     * @param $userAvatarRepository
+     */
+    public function __construct(IUserAvatarRepository $userAvatarRepository)
+    {
+        $this->userAvatarRepository = $userAvatarRepository;
+    }
+
 
     public function login(array $data): ?Authenticatable
     {
@@ -23,6 +36,16 @@ class ProfileRepository implements IProfileRepository
     public function register(array $data): ?User
     {
         $data['password'] = bcrypt($data['password']);
-        return User::create($data);
+
+        // Create new user object.
+        $user = User::make($data);
+
+        // Fill the profile_pic_url into user model
+        $user->profile_pic_url = $this->userAvatarRepository->createAvatar($user);
+
+        // Create new user into database.
+        $user->save();
+
+        return $user;
     }
 }

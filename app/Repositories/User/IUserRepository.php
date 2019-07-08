@@ -27,18 +27,4 @@ interface IUserRepository
      */
     public function all(array $query);
 
-    /**
-     * Delete single user
-     * @param User $user
-     * @return mixed
-     */
-    public function delete(User $user);
-
-    /**
-     * Update single user
-     * @param User $user
-     * @param array $data
-     * @return User|null
-     */
-    public function update(User $user, array $data) : ?User;
 }

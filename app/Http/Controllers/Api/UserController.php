@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Requests\Api\User\LoginUser;
-use App\Http\Requests\Api\User\RegisterUser;
 use App\Http\Requests\Api\User\UpdateUser;
 use App\Http\Resources\User\UserCollection;
 use App\Http\Resources\User\UserResource;
@@ -54,31 +52,5 @@ class UserController extends Controller
         ];
 
         return response()->json($data);
-    }
-
-    /**
-     * @param UpdateUser $request
-     * @param User $user
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function update(UpdateUser $request, User $user) {
-
-        $data = [
-            'status' => 'ok',
-            'user' => new UserResource($this->user->update($user, $request->validated()))
-        ];
-
-        return response()->json($data);
-    }
-
-    /**
-     * @param User $user
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function delete(User $user) {
-
-        $this->user->delete($user);
-
-        return response()->json([], 204);
     }
 }
