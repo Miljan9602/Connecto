@@ -19,6 +19,5 @@ SOLID Php
 https://www.hashbangcode.com/article/solid-principles-php
 https://medium.com/prod-io/solid-principles-takeaways-ec0825a07247
 
-
 Password Reset
 https://medium.com/modulr/api-rest-with-laravel-5-6-passport-authentication-reset-password-part-4-50d27455dcca

@@ -3,8 +3,6 @@
 
 namespace App\Repositories\PasswordReset;
 
-
-use App\Notifications\PasswordResetSuccess;
 use App\PasswordReset;
 use App\User;
 use Illuminate\Support\Str;
@@ -33,6 +31,7 @@ class PasswordResetRepository implements IPasswordResetRepository
    {
        $user->password = bcrypt($newPassword);
        $user->save();
-   }
 
+       $reset->delete();
+   }
 }

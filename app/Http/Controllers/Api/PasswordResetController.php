@@ -51,7 +51,7 @@ class PasswordResetController extends Controller
      * @param ResetFind $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function find(ResetFind $request) {
+    public function find(ResetFind $request, $token) {
 
         $passwordReset = $this->passwordReset->find($request->validated()['token']);
 
@@ -64,7 +64,7 @@ class PasswordResetController extends Controller
 
         $passwordReset = PasswordReset::where('token', $data['token'])->where('email', $data['email'])->first();
 
-        $user = User::where('email', $data['token'])->first();
+        $user = User::where('email', $data['email'])->first();
 
         $this->passwordReset->reset($user, $passwordReset, $data['password']);
 

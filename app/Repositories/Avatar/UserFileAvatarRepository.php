@@ -16,13 +16,13 @@ class UserFileAvatarRepository implements IUserAvatarRepository
 
         Storage::put('public/avatars/'.$hash.".png", base64_decode(explode("base64,", $avatar)[1]), 'public');
 
-        return Storage::url('avatars/'.$hash.".png");
+        return asset( Storage::url('avatars/'.$hash.".png"));
     }
 
     public function getAvatarPath(User $user): ?string
     {
         $hash = md5(strtolower(trim($user->email)));
 
-        return Storage::url('avatars/'.$hash.".png");
+        return asset( Storage::url('avatars/'.$hash.".png"));
     }
 }

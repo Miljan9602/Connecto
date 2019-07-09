@@ -34,7 +34,7 @@ class IsExpiredResetToken implements Rule
      */
     public function passes($attribute, $value)
     {
-        $passwordReset = PasswordReset::where('token', $this->request->get('token'))->first();
+        $passwordReset = PasswordReset::where('token', $value)->first();
 
         // If we found password reset and it is still valid. rule is valid.
         return $passwordReset && !Carbon::parse($passwordReset->updated_at)->addMinutes(720)->isPast();
