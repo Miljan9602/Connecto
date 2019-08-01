@@ -33,4 +33,11 @@ Route::group(['prefix' => 'v1'], function ($router) {
         });
     });
 
+    Route::group(['prefix' => 'friendships', 'middleware' => ['auth:api']], function ($router) {
+
+        Route::post('/', 'Api\FriendshipController@create')->name('friendships.create_new');
+        Route::delete('{user_id}', 'Api\FriendshipController@destroy')->name('friendships.destroy');
+
+    });
+
 });
