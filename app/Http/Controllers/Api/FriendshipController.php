@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
 
 class FriendshipController extends Controller
 {
@@ -27,7 +25,7 @@ class FriendshipController extends Controller
      */
     public function store(Request $request)
     {
-        new LengthAwarePaginator()
+
     }
 
     /**
