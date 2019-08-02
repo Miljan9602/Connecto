@@ -22,7 +22,7 @@ Route::group(['prefix' => 'v1'], function ($router) {
         Route::post('reset', 'Api\PasswordResetController@reset');
     });
 
-    Route::apiResource('user', 'Api\UserController', ['middleware' => 'auth:api']);
+    Route::apiResource('user', 'Api\UserController', ['middleware' => []]);
 
     Route::group(['prefix' => 'profiles'], function ($router) {
         Route::post('register', 'Api\ProfileController@register');

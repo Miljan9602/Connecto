@@ -39,7 +39,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            //ValidateSignature::class,
+            ValidateSignature::class,
             'throttle:40,1',
             'bindings',
         ],
