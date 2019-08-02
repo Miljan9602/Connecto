@@ -5,26 +5,9 @@ namespace App\Rules;
 use App\PasswordReset;
 use Carbon\Carbon;
 use Illuminate\Contracts\Validation\Rule;
-use Illuminate\Http\Request;
 
 class IsExpiredResetToken implements Rule
 {
-
-    /**
-     * @var Request
-     */
-    protected $request;
-
-    /**
-     * Create a new rule instance.
-     *
-     * @return void
-     */
-    public function __construct(Request $request)
-    {
-        $this->request = $request;
-    }
-
     /**
      * Determine if the validation rule passes.
      *

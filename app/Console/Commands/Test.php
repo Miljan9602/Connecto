@@ -2,8 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Repositories\Avatar\UserFileAvatarRepository;
-use App\User;
+use App\PasswordReset;
 use Illuminate\Console\Command;
 
 class Test extends Command
@@ -39,6 +38,6 @@ class Test extends Command
      */
     public function handle()
     {
-        $user = User::find(1);
+
     }
 }
