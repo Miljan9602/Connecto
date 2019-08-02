@@ -59,7 +59,6 @@ class MiddlewareTest extends TestCase
 
         $hash = hash('sha256', base64_encode($url.$key.$jsonQuery.$time));
 
-
         $response = $this->json('GET', '/api/v1/user', $query, [
             'Security-Token' => $hash
         ]);
