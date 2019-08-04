@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\PasswordReset;
+use App\User;
 use Illuminate\Console\Command;
 
 class Test extends Command

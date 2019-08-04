@@ -70,12 +70,27 @@ class FriendshipController extends Controller
         return response()->json([], 204);
     }
 
+    /**
+     * @param FollowersRequest $request
+     * @param User $user
+     * @return mixed
+     */
     public function followers(FollowersRequest $request, User $user) {
 
+        $result = $this->friendshipRetrieveRepository->getFollowers($user, $request->validated());
+
+        return $result;
     }
 
-
+    /**
+     * @param FollowingRequest $request
+     * @param User $user
+     * @return mixed
+     */
     public function following(FollowingRequest $request, User $user) {
 
+        $result = $this->friendshipRetrieveRepository->getFollowing($user, $request->validated());
+
+        return $result;
     }
 }

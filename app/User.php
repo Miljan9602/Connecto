@@ -59,4 +59,26 @@ class User extends Authenticatable
     public function getFriendship(User $user) : ?Friendship {
         return Friendship::where('user_id', $this->id)->where('follower_id', $user->id)->first();
     }
+
+    /**
+     * @param null $fromId
+     * @return mixed
+     */
+    public function getFollowers($fromId = null) {
+
+        $followers = Friendship::where('follower_id', $this->id)->get();
+
+        return $followers;
+    }
+
+    /**
+     * @param null $fromId
+     * @return mixed
+     */
+    public function getFollowing($fromId = null) {
+
+        $following = Friendship::where('user_id', $this->id)->get();
+
+        return $following;
+    }
 }

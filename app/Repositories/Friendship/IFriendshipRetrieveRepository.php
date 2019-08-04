@@ -10,17 +10,19 @@ interface IFriendshipRetrieveRepository
 
     /**
      * Return list of followers for passed user.
+     *
      * @param User $user
-     * @param $nextId integer id which will be used for pagination.
+     * @param $query
      * @return mixed
      */
-    public function getFollowers(User $user, $nextId);
+    public function getFollowers(User $user, $query);
 
     /**
      * Return list of followings for passed user.
+     *
      * @param User $user
-     * @param $nextId integer id which will be used for pagination.
+     * @param $query
      * @return mixed
      */
-    public function getFollowing(User $user, $nextId);
+    public function getFollowing(User $user, $query);
 }

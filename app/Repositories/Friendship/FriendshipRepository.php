@@ -28,12 +28,17 @@ class FriendshipRepository implements IFriendshipStorageRepository, IFriendshipR
 
     public function getFollowers(User $user, $nextId)
     {
-        // TODO: Implement getFollowers() method.
+        $followers = $user->getFollowers($nextId);
+
+
+        return $followers;
     }
 
     public function getFollowing(User $user, $nextId)
     {
-        // TODO: Implement getFollowing() method.
+        $following = $user->getFollowing($nextId);
+
+        return $following;
     }
 
 

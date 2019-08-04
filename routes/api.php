@@ -38,6 +38,9 @@ Route::group(['prefix' => 'v1'], function ($router) {
         Route::post('/{user}', 'Api\FriendshipController@store')->name('friendships.create_new');
         Route::delete('/{user}', 'Api\FriendshipController@destroy')->name('friendships.destroy');
 
+        Route::get('/{user}/following', 'Api\FriendshipController@following')->name('friendships.following');
+        Route::get('/{user}/followers', 'Api\FriendshipController@followers')->name('friendships.followers');
+
     });
 
 });

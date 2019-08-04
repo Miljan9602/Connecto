@@ -2,29 +2,19 @@
 
 namespace App\Http\Requests\Api\Friendship;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Api\AbstractRequest;
 
-class FollowingRequest extends FormRequest
+class FollowingRequest extends AbstractRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return false;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
-    public function rules()
+    public function rules() : array
     {
         return [
-            //
+            'from_id' => ['integer']
         ];
     }
 }
