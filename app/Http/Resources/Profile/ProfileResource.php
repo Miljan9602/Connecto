@@ -17,16 +17,21 @@ class ProfileResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+
+        // Default data which we will return.
+        $data = [
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
             'email_verified_at' => $this->email_verified_at,
             'profile_pic_url' => $this->profile_pic_url,
-            $this->mergeWhen($this->withAccessToken, [
-                'token' => $this->token
-            ])
         ];
+
+        if ($this->withAccessToken) {
+            $data['token'] = $this->token;
+        }
+
+        return $data;
     }
 
     public function withAccessToken(){

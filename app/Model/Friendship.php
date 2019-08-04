@@ -8,5 +8,5 @@ class Friendship extends Model
 {
     protected $table = 'friendships';
 
-
+    protected $guarded = [];
 }

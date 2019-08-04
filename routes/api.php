@@ -22,21 +22,21 @@ Route::group(['prefix' => 'v1'], function ($router) {
         Route::post('reset', 'Api\PasswordResetController@reset');
     });
 
-    Route::apiResource('user', 'Api\UserController', ['middleware' => []]);
+    Route::apiResource('user', 'Api\UserController', ['middleware' => ['auth:api']]);
 
     Route::group(['prefix' => 'profiles'], function ($router) {
         Route::post('register', 'Api\ProfileController@register');
         Route::post('login', 'Api\ProfileController@login');
 
         Route::group(['middleware' => 'auth:api'], function ($router) {
-            Route::get('current_user', 'Api\ProfileController@current_user')->name('profiles.current_user');
+            Route::get('current_user', 'Api\ProfileController@currentUser')->name('profiles.current_user');
         });
     });
 
     Route::group(['prefix' => 'friendships', 'middleware' => ['auth:api']], function ($router) {
 
-        Route::post('/', 'Api\FriendshipController@create')->name('friendships.create_new');
-        Route::delete('{user_id}', 'Api\FriendshipController@destroy')->name('friendships.destroy');
+        Route::post('/{user_id}', 'Api\FriendshipController@store')->name('friendships.create_new');
+        Route::delete('/{user_id}', 'Api\FriendshipController@destroy')->name('friendships.destroy');
 
     });
 

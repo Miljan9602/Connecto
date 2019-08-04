@@ -19,8 +19,9 @@ interface IFriendshipRepository
     public function create(User $user, User $follower) : Friendship;
 
     /**
-     * @param Friendship $friendship
+     * @param User $user logged user who want to perform unfollow action.
+     * @param User $userToUnfollow user which has to be unfollowed
      * @return mixed
      */
-    public function destroy(Friendship $friendship);
+    public function destroy(User $user, User $userToUnfollow);
 }

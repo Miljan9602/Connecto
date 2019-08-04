@@ -34,5 +34,10 @@ class BackendServiceProvider extends ServiceProvider
             'App\Repositories\Avatar\IUserAvatarRepository',
             'App\Repositories\Avatar\UserFileAvatarRepository'
         );
+
+        $this->app->bind(
+            'App\Repositories\Friendship\IFriendshipRepository',
+            'App\Repositories\Friendship\FriendshipRepository'
+        );
     }
 }

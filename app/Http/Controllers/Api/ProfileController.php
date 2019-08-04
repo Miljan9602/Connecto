@@ -25,6 +25,9 @@ class ProfileController extends Controller
         $this->profile = $profile;
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function currentUser() {
 
         $user = Auth::user();

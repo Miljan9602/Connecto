@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Api\ResetPassword;
+namespace App\Http\Requests\Api\Friendship;
 
 use App\Http\Requests\Api\AbstractRequest;
-use App\Rules\IsExpiredResetToken;
+use App\Rules\IsValidFriendshipUser;
 
-class ResetFind extends AbstractRequest
+class CreateNewFriendship extends AbstractRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -15,7 +15,7 @@ class ResetFind extends AbstractRequest
     public function rules() : array
     {
         return [
-            'token' => ['bail', 'string', 'exists:password_resets', new IsExpiredResetToken()]
+            'user_id' => ['bail', 'required', 'integer', 'exists:users,id', new IsValidFriendshipUser()]
         ];
     }
 

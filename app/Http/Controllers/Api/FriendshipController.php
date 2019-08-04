@@ -2,63 +2,60 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\Api\Friendship\CreateNewFriendship;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Friendship\DestroyFriendship;
+use App\Repositories\Friendship\IFriendshipRepository;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class FriendshipController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @var IFriendshipRepository
      */
-    public function index()
+    protected $friendshipRepository;
+
+    /**
+     * FriendshipController constructor.
+     * @param IFriendshipRepository $friendshipRepository
+     */
+    public function __construct(IFriendshipRepository $friendshipRepository)
     {
-        //
+        $this->friendshipRepository = $friendshipRepository;
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CreateNewFriendship $request
+     * @param $userId
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(CreateNewFriendship $request)
     {
+        $data = $request->validated();
 
+        $loggedUser = User::find(Auth::user()->id);
+        $toFollowUser = User::find($data['user_id']);
+
+        $this->friendshipRepository->create($loggedUser, $toFollowUser);
+
+        return response()->json([], 204);
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param DestroyFriendship $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function destroy(DestroyFriendship $request)
     {
-        //
-    }
+        $data = $request->validated();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        $loggedUser = User::find(Auth::user()->id);
+        $toFollowUser = User::find($data['user_id']);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $this->friendshipRepository->destroy($loggedUser, $toFollowUser);
+
+        return response()->json([], 204);
     }
 }
