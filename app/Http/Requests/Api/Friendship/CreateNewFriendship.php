@@ -15,7 +15,7 @@ class CreateNewFriendship extends AbstractRequest
     public function rules() : array
     {
         return [
-            'user_id' => ['bail', 'required', 'integer', 'exists:users,id', new IsValidFriendshipUser()]
+            'user' => ['bail', 'required', new IsValidFriendshipUser()]
         ];
     }
 

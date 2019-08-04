@@ -7,7 +7,11 @@ namespace App\Repositories\Friendship;
 use App\Model\Friendship;
 use App\User;
 
-interface IFriendshipRepository
+/**
+ * Interface IFriendshipStorageRepository for storage friendship actions such as create/destroy/update.
+ * @package App\Repositories\Friendship
+ */
+interface IFriendshipStorageRepository
 {
     /**
      * Create new friendship.

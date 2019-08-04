@@ -36,13 +36,13 @@ class IsValidFriendshipUser implements Rule
         $loggedUser = Auth::user();
 
         // If user asked to follow itself.
-        if ($loggedUser->id == $value) {
+        if ($loggedUser->id == $value->id) {
             $this->message = "Wrong user to follow";
             return false;
         }
 
         // Check if user already follow current user. If we already follow user, request is not valid.
-        return !$loggedUser->isFollowingUser(User::find($value));
+        return !$loggedUser->isFollowingUser($value);
     }
 
     /**

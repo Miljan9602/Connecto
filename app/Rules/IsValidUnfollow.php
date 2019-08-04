@@ -36,13 +36,13 @@ class IsValidUnfollow implements Rule
         $loggedUser = Auth::user();
 
         // If user asked to follow itself.
-        if ($loggedUser->id == $value) {
+        if ($loggedUser->id == $value->id) {
             $this->message = "Wrong user to unfollow";
             return false;
         }
         
         
-        return $loggedUser->isFollowingUser(User::find($value));
+        return $loggedUser->isFollowingUser($value);
     }
 
     /**

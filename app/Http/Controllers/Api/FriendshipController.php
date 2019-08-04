@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\Api\Friendship\CreateNewFriendship;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Friendship\DestroyFriendship;
-use App\Repositories\Friendship\IFriendshipRepository;
+use App\Http\Requests\Api\Friendship\FollowersRequest;
+use App\Http\Requests\Api\Friendship\FollowingRequest;
+use App\Repositories\Friendship\IFriendshipRetrieveRepository;
+use App\Repositories\Friendship\IFriendshipStorageRepository;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,32 +16,40 @@ class FriendshipController extends Controller
 {
 
     /**
-     * @var IFriendshipRepository
+     * @var IFriendshipStorageRepository
      */
-    protected $friendshipRepository;
+    protected $friendshipStorageRepository;
+
+    /**
+     * @var IFriendshipRetrieveRepository
+     */
+    protected $friendshipRetrieveRepository;
 
     /**
      * FriendshipController constructor.
-     * @param IFriendshipRepository $friendshipRepository
+     * @param IFriendshipStorageRepository $friendshipStorageRepository
+     * @param IFriendshipRetrieveRepository $friendshipRetrieveRepository
      */
-    public function __construct(IFriendshipRepository $friendshipRepository)
+    public function __construct(
+        IFriendshipStorageRepository $friendshipStorageRepository,
+        IFriendshipRetrieveRepository $friendshipRetrieveRepository)
     {
-        $this->friendshipRepository = $friendshipRepository;
+        $this->friendshipStorageRepository = $friendshipStorageRepository;
+        $this->friendshipRetrieveRepository = $friendshipRetrieveRepository;
     }
 
     /**
      * @param CreateNewFriendship $request
-     * @param $userId
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(CreateNewFriendship $request)
     {
-        $data = $request->validated();
-
         $loggedUser = User::find(Auth::user()->id);
-        $toFollowUser = User::find($data['user_id']);
 
-        $this->friendshipRepository->create($loggedUser, $toFollowUser);
+        // Model which is bind to the route.
+        $toFollowUser = $request->user;
+
+        $this->friendshipStorageRepository->create($loggedUser, $toFollowUser);
 
         return response()->json([], 204);
     }
@@ -49,13 +60,22 @@ class FriendshipController extends Controller
      */
     public function destroy(DestroyFriendship $request)
     {
-        $data = $request->validated();
-
         $loggedUser = User::find(Auth::user()->id);
-        $toFollowUser = User::find($data['user_id']);
 
-        $this->friendshipRepository->destroy($loggedUser, $toFollowUser);
+        // Model which is bind to the route.
+        $toFollowUser = $request->user;
+
+        $this->friendshipStorageRepository->destroy($loggedUser, $toFollowUser);
 
         return response()->json([], 204);
+    }
+
+    public function followers(FollowersRequest $request, User $user) {
+
+    }
+
+
+    public function following(FollowingRequest $request, User $user) {
+
     }
 }

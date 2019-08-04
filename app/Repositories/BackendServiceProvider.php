@@ -36,7 +36,12 @@ class BackendServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            'App\Repositories\Friendship\IFriendshipRepository',
+            'App\Repositories\Friendship\IFriendshipStorageRepository',
+            'App\Repositories\Friendship\FriendshipRepository'
+        );
+
+        $this->app->bind(
+            'App\Repositories\Friendship\IFriendshipRetrieveRepository',
             'App\Repositories\Friendship\FriendshipRepository'
         );
     }
