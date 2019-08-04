@@ -21,7 +21,7 @@ class BackendServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            'App\Repositories\Profile\IProfileRepository',
+            'App\Repositories\Profile\IProfileAuthenticationRepository',
             'App\Repositories\Profile\ProfileRepository'
         );
 

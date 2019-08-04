@@ -5,22 +5,22 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\Api\User\LoginUser;
 use App\Http\Requests\Api\User\RegisterUser;
 use App\Http\Resources\Profile\ProfileResource;
-use App\Repositories\Profile\IProfileRepository;
+use App\Repositories\Profile\IProfileAuthenticationRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
     /**
-     * @var IProfileRepository
+     * @var IProfileAuthenticationRepository
      */
     protected $profile;
 
     /**
      * ProfileController constructor.
-     * @param IProfileRepository $profile
+     * @param IProfileAuthenticationRepository $profile
      */
-    public function __construct(IProfileRepository $profile)
+    public function __construct(IProfileAuthenticationRepository $profile)
     {
         $this->profile = $profile;
     }

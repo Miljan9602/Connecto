@@ -7,7 +7,7 @@ use App\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Auth;
 
-class ProfileRepository implements IProfileRepository
+class ProfileRepository implements IProfileAuthenticationRepository
 {
     /**
      * @var IUserAvatarRepository

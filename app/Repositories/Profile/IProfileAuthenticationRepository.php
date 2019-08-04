@@ -6,7 +6,7 @@ namespace App\Repositories\Profile;
 use App\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 
-interface IProfileRepository
+interface IProfileAuthenticationRepository
 {
     /**
      * Login user.
