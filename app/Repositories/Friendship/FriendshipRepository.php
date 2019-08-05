@@ -30,7 +30,6 @@ class FriendshipRepository implements IFriendshipStorageRepository, IFriendshipR
     {
         $followers = $user->getFollowers($nextId);
 
-
         return $followers;
     }
 

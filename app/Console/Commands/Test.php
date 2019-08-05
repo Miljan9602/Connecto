@@ -38,6 +38,6 @@ class Test extends Command
      */
     public function handle()
     {
-
+        factory(User::class)->create();
     }
 }

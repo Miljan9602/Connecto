@@ -66,7 +66,13 @@ class User extends Authenticatable
      */
     public function getFollowers($fromId = null) {
 
-        $followers = Friendship::where('follower_id', $this->id)->with('follower')->get();
+        $followersResult = Friendship::where('follower_id', $this->id)->with('user')->get();
+
+        $followers = collect([]);
+
+        foreach ($followersResult as $result) {
+            $followers->push($result->user);
+        }
 
         return $followers;
     }
@@ -77,7 +83,13 @@ class User extends Authenticatable
      */
     public function getFollowing($fromId = null) {
 
-        $following = Friendship::where('user_id', $this->id)->with('follower')->get();
+        $followingResult = Friendship::where('user_id', $this->id)->with('follower')->get();
+
+        $following = collect([]);
+
+        foreach ($followingResult as $result) {
+            $following->push($result->follower);
+        }
 
         return $following;
     }
