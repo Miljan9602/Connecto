@@ -6,6 +6,7 @@ namespace App\Repositories\Friendship;
 
 use App\Model\Friendship;
 use App\User;
+use Illuminate\Support\Arr;
 
 class FriendshipRepository implements IFriendshipStorageRepository, IFriendshipRetrieveRepository
 {
@@ -26,16 +27,16 @@ class FriendshipRepository implements IFriendshipStorageRepository, IFriendshipR
         $friendship->delete();
     }
 
-    public function getFollowers(User $user, $nextId)
+    public function getFollowers(User $user, $query)
     {
-        $followers = $user->getFollowers($nextId);
+        $followers = $user->getFollowers(Arr::get($query, 'last_id', null));
 
         return $followers;
     }
 
-    public function getFollowing(User $user, $nextId)
+    public function getFollowing(User $user, $query)
     {
-        $following = $user->getFollowing($nextId);
+        $following = $user->getFollowing(Arr::get($query, 'last_id', null));
 
         return $following;
     }

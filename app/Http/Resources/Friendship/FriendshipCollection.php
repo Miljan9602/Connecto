@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Friendship;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Arr;
 
 class FriendshipCollection extends ResourceCollection
 {
@@ -14,10 +15,13 @@ class FriendshipCollection extends ResourceCollection
      */
     public function toArray($request)
     {
+        $users = FriendshipResource::collection($this->collection['users']);
+
         return [
-            'users' => FriendshipResource::collection($this->collection),
+            'users' => $users,
             'meta' => [
-                'users_count' => $this->collection->count()
+                'users_count' => $users->count(),
+                'last_id' => Arr::get($this->collection, 'last_id', null)
             ]
         ];
     }

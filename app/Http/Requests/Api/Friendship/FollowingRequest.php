@@ -14,7 +14,7 @@ class FollowingRequest extends AbstractRequest
     public function rules() : array
     {
         return [
-            'from_id' => ['integer']
+            'last_id' => ['integer']
         ];
     }
 }

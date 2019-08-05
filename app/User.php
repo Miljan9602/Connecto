@@ -62,11 +62,18 @@ class User extends Authenticatable
 
     /**
      * @param null $fromId
-     * @return mixed
+     * @return \Illuminate\Support\Collection
      */
-    public function getFollowers($fromId = null) {
+    public function getFollowers($fromId = null, $size = 10) {
 
-        $followersResult = Friendship::where('follower_id', $this->id)->with('user')->get();
+        $followersResult = Friendship::where('follower_id', $this->id)->where(function ($query) use ($fromId) {
+
+            if ($fromId) {
+                $query->where('id', '>', $fromId);
+            }
+
+            return $query;
+        })->orderBy('id')->with('user')->take($size)->get();
 
         $followers = collect([]);
 
@@ -74,16 +81,26 @@ class User extends Authenticatable
             $followers->push($result->user);
         }
 
-        return $followers;
+        return collect([
+           'users' => $followers,
+           'last_id' => $followersResult->last()->id ?? null
+        ]);
     }
 
     /**
      * @param null $fromId
-     * @return mixed
+     * @return \Illuminate\Support\Collection
      */
-    public function getFollowing($fromId = null) {
+    public function getFollowing($fromId = null, $size = 10) {
 
-        $followingResult = Friendship::where('user_id', $this->id)->with('follower')->get();
+        $followingResult = Friendship::where('user_id', $this->id)->where(function ($query) use ($fromId) {
+
+            if ($fromId) {
+                $query->where('id', '>', $fromId);
+            }
+
+            return $query;
+        })->orderBy('id')->with('follower')->take($size)->get();
 
         $following = collect([]);
 
@@ -91,6 +108,9 @@ class User extends Authenticatable
             $following->push($result->follower);
         }
 
-        return $following;
+        return collect([
+            'users' => $following,
+            'last_id' => $followingResult->last()->id ?? null
+        ]);
     }
 }
