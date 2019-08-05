@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\ResetPassword\ResetCreate;
 use App\Http\Requests\Api\ResetPassword\ResetFind;
 use App\Http\Requests\Api\ResetPassword\ResetPassword;
+use App\Http\Resources\PasswordReset\PasswordResetResource;
 use App\Notifications\PasswordResetRequest;
 use App\Notifications\PasswordResetSuccess;
 use App\PasswordReset;
@@ -44,7 +45,7 @@ class PasswordResetController extends Controller
 
         $user->notify(new PasswordResetRequest($resetPassword->token));
 
-        return response()->json(['status' => 'ok', 'message' => 'We have e-mailed your password reset link!'], 200);
+        return response()->json(['status' => 'ok', 'message' => 'We have e-mailed your password reset link!']);
     }
 
     /**
@@ -55,7 +56,10 @@ class PasswordResetController extends Controller
 
         $passwordReset = $this->passwordReset->find($request->validated()['token']);
 
-        return response()->json($passwordReset);
+        return response()->json([
+            'status' => 'ok',
+            'password_reset' => new PasswordResetResource($passwordReset)
+        ]);
     }
 
     public function reset(ResetPassword $request) {
