@@ -14,6 +14,11 @@ class FriendshipCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'users' => FriendshipResource::collection($this->collection),
+            'meta' => [
+                'users_count' => $this->collection->count()
+            ]
+        ];
     }
 }

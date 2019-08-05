@@ -14,6 +14,13 @@ class FriendshipResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        $user = $this->follower;
+
+        return [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'profile_pic_url' => $user->profile_pic_url
+        ];
     }
 }

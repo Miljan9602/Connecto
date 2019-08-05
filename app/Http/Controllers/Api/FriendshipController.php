@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Friendship\DestroyFriendship;
 use App\Http\Requests\Api\Friendship\FollowersRequest;
 use App\Http\Requests\Api\Friendship\FollowingRequest;
+use App\Http\Resources\Friendship\FriendshipCollection;
 use App\Repositories\Friendship\IFriendshipRetrieveRepository;
 use App\Repositories\Friendship\IFriendshipStorageRepository;
 use App\User;
@@ -77,9 +78,11 @@ class FriendshipController extends Controller
      */
     public function followers(FollowersRequest $request, User $user) {
 
-        $result = $this->friendshipRetrieveRepository->getFollowers($user, $request->validated());
+        $friendships = $this->friendshipRetrieveRepository->getFollowers($user, $request->validated());
 
-        return $result;
+        $collection = (new FriendshipCollection($friendships));
+
+        return response()->json(array_merge($collection->toArray($request), ['status' => 'ok']));
     }
 
     /**
@@ -89,8 +92,10 @@ class FriendshipController extends Controller
      */
     public function following(FollowingRequest $request, User $user) {
 
-        $result = $this->friendshipRetrieveRepository->getFollowing($user, $request->validated());
+        $friendships = $this->friendshipRetrieveRepository->getFollowing($user, $request->validated());
 
-        return $result;
+        $collection = (new FriendshipCollection($friendships));
+
+        return response()->json(array_merge($collection->toArray($request), ['status' => 'ok']));
     }
 }
