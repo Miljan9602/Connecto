@@ -52,7 +52,7 @@ class FriendshipController extends Controller
 
         $this->friendshipStorageRepository->create($loggedUser, $toFollowUser);
 
-        return response()->json([], 204);
+        return response()->json([], 201);
     }
 
     /**

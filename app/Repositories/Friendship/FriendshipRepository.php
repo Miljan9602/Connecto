@@ -1,11 +1,7 @@
 <?php
 
-
 namespace App\Repositories\Friendship;
 
-
-use App\Events\FriendshipCreatedEvent;
-use App\Events\FriendshipDeletedEvent;
 use App\Model\Friendship;
 use App\User;
 use Illuminate\Support\Arr;
@@ -20,8 +16,6 @@ class FriendshipRepository implements IFriendshipStorageRepository, IFriendshipR
             'follower_id' => $follower->id
         ]);
 
-        event(new FriendshipCreatedEvent($friendship));
-
         return $friendship;
     }
 
@@ -30,8 +24,6 @@ class FriendshipRepository implements IFriendshipStorageRepository, IFriendshipR
         $friendship = $user->getFriendship($userToUnfollow);
 
         $friendship->delete();
-
-        event(new FriendshipDeletedEvent($friendship));
     }
 
     public function getFollowers(User $user, $query)

@@ -46,11 +46,9 @@ class UserController extends Controller
      */
     public function show(User $user) {
 
-        $data = [
+        return response()->json([
             'status' => 'ok',
             'user' => new UserResource($this->user->get($user))
-        ];
-
-        return response()->json($data);
+        ]);
     }
 }
