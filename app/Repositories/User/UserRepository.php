@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Auth;
  * Class UserRepository
  * @package App\Repositories\User
  */
-class UserRepository extends AbstractRepository implements IUserRepository
+class UserRepository implements IUserRepository
 {
 
     public function get(User $user): ?User

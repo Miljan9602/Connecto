@@ -51,7 +51,7 @@ class PasswordResetController extends Controller
      * @param ResetFind $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function find(ResetFind $request, $token) {
+    public function find(ResetFind $request) {
 
         $passwordReset = $this->passwordReset->find($request->validated()['token']);
 
@@ -70,6 +70,9 @@ class PasswordResetController extends Controller
 
         $user->notify(new PasswordResetSuccess());
 
-        return response()->json($user);
+        return response()->json([
+            'status' => 'ok',
+            'message' => 'Password reset successfully, you can now login to your account'
+        ]);
     }
 }
