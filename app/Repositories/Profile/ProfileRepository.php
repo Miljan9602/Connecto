@@ -26,7 +26,7 @@ class ProfileRepository implements IProfileAuthenticationRepository
 
     public function login(array $data): ?Authenticatable
     {
-        if(Auth::attempt(['email' => $data['email'], 'password' => $data['password']])){
+        if(Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
             return Auth::user();
         }
 

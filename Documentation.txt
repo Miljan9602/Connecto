@@ -25,5 +25,8 @@ https://medium.com/modulr/api-rest-with-laravel-5-6-passport-authentication-rese
 Testing:
 https://blog.pusher.com/tests-laravel-applications/
 
+Events:
+https://laravel.com/docs/5.8/events
+
 GOOD TO MENTION
 https://medium.com/@alexrenoki/pushing-laravel-further-best-tips-good-practices-for-laravel-5-7-ac97305b8cac
