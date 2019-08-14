@@ -1,17 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: miki
- * Date: 2019-05-25
- * Time: 20:56
- */
-
-namespace App\Repositories;
 
 
-use Carbon\Laravel\ServiceProvider;
+namespace App\Providers;
 
-class BackendServiceProvider extends ServiceProvider
+
+use Illuminate\Support\ServiceProvider;
+
+class RepositoryServiceProvider extends ServiceProvider
 {
     public function register()
     {

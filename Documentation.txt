@@ -30,3 +30,5 @@ https://laravel.com/docs/5.8/events
 
 GOOD TO MENTION
 https://medium.com/@alexrenoki/pushing-laravel-further-best-tips-good-practices-for-laravel-5-7-ac97305b8cac
+https://dfg.gd/blog/decoupling-your-code-in-laravel-using-repositiories-and-services
+https://medium.com/@sergiumneagu/laravel-why-youve-been-using-the-repository-pattern-the-wrong-way-952aedf1989b

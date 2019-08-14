@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Facades\Friendship;
 use App\Http\Requests\Api\Friendship\CreateNewFriendship;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Friendship\DestroyFriendship;
@@ -50,7 +51,7 @@ class FriendshipController extends Controller
         // Model which is bind to the route.
         $toFollowUser = $request->user;
 
-        $this->friendshipStorageRepository->create($loggedUser, $toFollowUser);
+        Friendship::create($loggedUser, $toFollowUser);
 
         return response()->json([], 201);
     }
@@ -66,7 +67,7 @@ class FriendshipController extends Controller
         // Model which is bind to the route.
         $toFollowUser = $request->user;
 
-        $this->friendshipStorageRepository->destroy($loggedUser, $toFollowUser);
+        Friendship::destroy($loggedUser, $toFollowUser);
 
         return response()->json([], 204);
     }
@@ -78,7 +79,7 @@ class FriendshipController extends Controller
      */
     public function followers(FollowersRequest $request, User $user) {
 
-        $friendships = $this->friendshipRetrieveRepository->getFollowers($user, $request->validated());
+        $friendships = Friendship::getFollowers($user, $request->validated());
 
         $collection = (new FriendshipCollection($friendships));
 
@@ -92,7 +93,7 @@ class FriendshipController extends Controller
      */
     public function following(FollowingRequest $request, User $user) {
 
-        $friendships = $this->friendshipRetrieveRepository->getFollowing($user, $request->validated());
+        $friendships = Friendship::getFollowing($user, $request->validated());
 
         $collection = (new FriendshipCollection($friendships));
 

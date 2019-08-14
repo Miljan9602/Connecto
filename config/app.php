@@ -171,7 +171,8 @@ return [
         /*
          * Custom Service Providers...
          */
-        \App\Repositories\BackendServiceProvider::class,
+        \App\Providers\RepositoryServiceProvider::class,
+        \App\Providers\FriendshipServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -233,6 +234,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Avatar'    => Laravolt\Avatar\Facade::class,
+        'Friendship' => \App\Facades\Friendship::class,
 
     ],
 
